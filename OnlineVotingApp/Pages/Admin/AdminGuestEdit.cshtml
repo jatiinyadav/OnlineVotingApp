@@ -1,0 +1,41 @@
+﻿@page
+@model OnlineVotingApp.Pages.Admin.AdminGuestEditModel
+@using System.Data.SqlClient;
+@{
+	ViewData["Title"] = "Guest Edit";
+}
+
+<h2>Guest Edit</h2>
+
+<a class="btn btn-dark" href="/Admin/AdminGuestUpdate">Back to Guest List</a>
+
+<form method="POST" >
+	<div class="form-group">
+		<label for="guestName">Guest Name </label>
+		<input type="text" class="form-control" name="guestName" placeholder="Guest Name..." value="@Model.partyDetails.GuestName">
+	</div>
+
+	<div class="form-group">
+		<label for="guestAadhaar">Guest Aadhaar</label>
+		<input type="text" class="form-control" name="guestAadhaar" placeholder="Guest Aaadhar..." value="@Model.partyDetails.GuestIDProof">
+	</div>
+
+	<input type="hidden" name="partyPrevious" value="@Model.partyDetails.PartyName"/>
+
+	<div class="form-group">
+		<label for="guestPartyChoose">Party Name</label>
+		<select class="form-select" aria-label="Default select example" name="guestPartyChoose">
+			<option selected>Choose Party</option>
+			@foreach (var item in Model.partyNamesList)
+			{
+				<option value="@item.PartyName">@item.PartyName</option>
+			}
+		</select>
+	</div>
+
+	<p>Party Voted by <strong> @Model.partyDetails.GuestName </strong> is: <strong>@Model.partyDetails.PartyName </strong> </p>
+
+    <br/>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

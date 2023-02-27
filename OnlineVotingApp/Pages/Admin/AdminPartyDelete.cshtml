@@ -1,0 +1,61 @@
+﻿@page
+@using System.Data.SqlClient;
+@{
+    ViewData["Title"] = "Party Delete";
+
+    string myID = Convert.ToString(Request.Query["id"]);
+
+    try
+    {
+        string connectionString = @"Data Source=SP13884\SQLEXPRESS;Initial Catalog=assessmentDB;Integrated Security=True;MultipleActiveResultSets=true";
+
+        using (SqlConnection cnn = new SqlConnection(connectionString))
+        {
+            cnn.Open();
+
+            string query2 = $"SELECT GuestID FROM VotingDetails WHERE PartyName=(SELECT PartyName FROM PartyDetails WHERE PartyID = {myID})";
+            SqlCommand cmd2 = new SqlCommand(query2, cnn);
+            SqlDataReader dr;
+            dr = cmd2.ExecuteReader();
+            string op = "";
+            while (dr.Read())
+            {
+                op += dr.GetValue(0) + ",";
+            }
+
+            List<string> guestid = (op.Split(',')).ToList();
+            guestid.Remove(",");
+            guestid.Remove("");
+            string query1 = "";
+            foreach (var i in guestid)
+            {
+                query1 = $"DELETE FROM GuestDetails WHERE GuestID = {i}";
+                SqlCommand cmd = new SqlCommand(query1, cnn);
+                SqlDataAdapter ad = new SqlDataAdapter();
+                ad.DeleteCommand = cmd;
+                ad.DeleteCommand.ExecuteNonQuery();
+
+            }
+            query1 = $"DELETE FROM VotingDetails WHERE PartyName = (SELECT PartyName FROM PartyDetails WHERE PartyID = {myID})" +
+                     $"DELETE FROM PartyDetails WHERE PartyID = {myID}";
+
+            SqlCommand cmd1 = new SqlCommand(query1, cnn);
+
+                cmd1.ExecuteNonQuery();
+            
+
+            dr.Close();
+        }
+    }
+    catch (Exception)
+    {
+
+        throw;
+    }
+
+    //Response.Redirect("/Admin/AdminPartyUpdate");
+}
+
+<a class="btn btn-dark" href="/Admin/AdminPartyUpdate">Back to Admin Details</a>
+
+<h1>Party with ID : @myID Deleted</h1>

@@ -1,0 +1,69 @@
+﻿@page
+@model OnlineVotingApp.Pages.Voter.VoterLoginModel
+@{
+	ViewData["Title"] = "Voter Login";
+}
+
+<h1>Voter Login</h1>
+
+
+
+<a class="btn btn-dark" href="/">Back to Dashboard</a>
+
+<div class="d-flex justify-content-between">
+
+	<div>
+		<img class="voterImage" src="/images/Voting-Voter.svg" />
+	</div>
+
+	<div class="centerAlign">
+
+		<div class="voterInput">
+			<form method="POST">
+				<div class="form-group mb-3">
+					<label for="guestName">Guest Name </label>
+					<input type="text" class="form-control" name="guestName" placeholder="Voter Name...">
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="guestAadhaar">Guest Aadhaar</label>
+					<input type="text" class="form-control" name="guestAadhaar" placeholder="Voter Aaadhar...">
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="guestPartyChoose">Party Name</label>
+					<select class="form-select" aria-label="Default select example" name="guestPartyChoose">
+						<option selected>Choose Party</option>
+						@*			<option value="BJP">BJP</option>
+						<option value="AAP">AAP</option>
+						<option value="INC">INC</option>
+						<option value="BSP">BSP</option>*@
+
+						@foreach (var item in Model.partyNames)
+						{
+							<option value="@item.PartyName">@item.PartyName</option>
+						}
+
+					</select>
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="guestPartyChoose">Party Symbol</label>
+					<select class="form-select" aria-label="Default select example" name="guestChosenPartySymbol">
+						<option selected>Choose Party Symbol</option>
+						@foreach (var item in Model.partyNames)
+						{
+							<option value="@item.PartySymbol">@item.PartySymbol</option>
+						}
+					</select>
+				</div>
+
+				<br />
+
+				<button type="submit" class="btn btn-primary w-100">Submit</button>
+			</form>
+		</div>
+
+	</div>
+
+</div>

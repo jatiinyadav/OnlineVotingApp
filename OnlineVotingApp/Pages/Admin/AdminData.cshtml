@@ -1,0 +1,74 @@
+﻿@page
+@model OnlineVotingApp.Pages.Admin.AdminDataModel
+@{
+	ViewData["Title"] = "Admin Data";
+}
+
+<h2>Welcome To Admin Details</h2>
+
+<form method="POST">
+
+	<div class="d-flex justify-content-between">
+
+		<div>
+			<a class="btn btn-primary" href="/Admin/AdminGuestUpdate">Update GuestDetails</a>
+			<a class="btn btn-primary" href="/Admin/AdminPartyUpdate">Update PartyDetails</a>
+		</div>
+
+		<div>
+			<input name="searchGuestName" placeholder="Guest Name..." />
+			<button type="submit" class="btn btn-primary">Search Guest</button>
+		</div>
+
+	</div>
+
+</form>
+
+
+
+
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>GuestID</th>
+			<th>Guest Name</th>
+			<th>Guest Aadhaar</th>
+			<th>Party Name</th>
+			<th>Date</th>
+			@*<th>Actions</th>*@
+		</tr>
+	</thead>
+	<tbody>
+
+		@foreach (var item in Model.guestDetailList)
+		{
+			<tr>
+
+				<td>@item.GuestID</td>
+				<td>@item.GuestName</td>
+				<td>@item.GuestIDProof</td>
+				<td>@item.PartyName</td>
+				<td>@item.DateDetails</td>
+				@*				<td>
+			<a class="btn btn-primary btn-sml" href="/Admin/Edit?id=@item.GuestID"> Edit </a>
+			<a class="btn btn-danger btn-sml"> Delete </a>
+			</td>*@
+
+			</tr>
+		}
+	</tbody>
+</table>
+
+
+
+@if (Model.errorMessage.Length > 1)
+{
+	<h5>@Model.errorMessage</h5>
+}
+
+<br />
+
+
+<a class="btn btn-success" href="/Admin/Results">Election Result</a>

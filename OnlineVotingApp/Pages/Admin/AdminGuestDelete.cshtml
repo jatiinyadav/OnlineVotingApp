@@ -1,0 +1,32 @@
+﻿@page
+@using System.Data.SqlClient;
+@{
+
+    string myID = Convert.ToString(Request.Query["id"]);
+
+    try
+    {
+        string connectionString = @"Data Source=SP13884\SQLEXPRESS;Initial Catalog=assessmentDB;Integrated Security=True";
+
+        using (SqlConnection cnn = new SqlConnection(connectionString))
+        {
+            cnn.Open();
+
+            string query = $"DELETE FROM GuestDetails WHERE GuestID = {myID}" + 
+                           $"UPDATE PartyDetails SET PartyCount = PartyCount - 1 WHERE PartyName = (SELECT PartyName FROM VotingDetails WHERE GuestID = {myID})" + 
+                           $"DELETE FROM VotingDetails WHERE GuestID = {myID}";
+
+            using (SqlCommand cmd = new SqlCommand(query, cnn))
+            {
+                cmd.ExecuteNonQuery();
+            }
+
+        }
+    }
+    catch (Exception ex)
+    {
+        throw;
+    }
+
+    Response.Redirect("/Admin/AdminGuestUpdate");
+}

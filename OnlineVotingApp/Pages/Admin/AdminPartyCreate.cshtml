@@ -1,0 +1,24 @@
+﻿@page
+@model OnlineVotingApp.Pages.Admin.AdminPartyCreateModel
+@{
+    ViewData["Title"] = "Party Create";
+}
+
+<h1>Create new Party</h1>
+
+<a class="btn btn-dark" href="/Admin/AdminPartyUpdate">Back to All Parties</a>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="partyName">Party Name </label>
+        <input type="text" class="form-control" name="partyName" placeholder="Party Name...">
+    </div>
+    <div class="form-group">
+        <label for="partySymbol">Party Symbol</label>
+        <input type="text" class="form-control" name="partySymbol" placeholder="Party Symbol...">
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,58 @@
+﻿@page
+@model OnlineVotingApp.Pages.Admin.ResultsModel
+@{
+	ViewData["Title"] = "Results";
+}
+
+<h2>Online Voting Results</h2>
+
+<a class="btn btn-primary" href="/Admin/AdminData">Go to Admin Page</a>
+
+<br/>
+<br/>
+
+<h2 class="text-center mb-5">@Model.PartyWon won with @Model.WinningVote votes.</h2>
+
+<div class="container">
+
+		<div class="row mb-5" >
+
+		@foreach (var item in Model.guestDetailList)
+		{
+			<div class="col-1 m-auto mb-3">
+
+				<div class="card" style="width: 10rem; ">
+					<div class="card-body">
+
+						<h5 class="card-title">@item.PartyName</h5>
+
+						<h6>Total Votes : <span class="text-primary h2">@item.PartyCount</span></h6>
+
+						@*<a class="btn btn-primary btn-sml" href="/Clients/Edit?id=@item.ID"> Edit </a>*@
+						@*<a class="btn btn-danger btn-sml" href="/Clients/DeleteMember?id=@item.ID"> Delete </a>*@
+					</div>
+				</div>
+			</div>
+		}
+		</div>
+
+		<h3 class="text-center">Total Votes: <span class="text-primary" >@Model.VoteCount</span></h3>
+</div>
+
+<div id="party-container" class="center"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+
+<script>
+  party.confetti(document.getElementById('party-container'), {
+    count: 100,
+    angle: 60,
+    spread: 60,
+    size: 0.6,
+    decay: 0.9,
+    gravity: 0.1,
+    drift: 0,
+    colors: ['#ff0000', '#00ff00', '#0000ff']
+  });
+</script>
+

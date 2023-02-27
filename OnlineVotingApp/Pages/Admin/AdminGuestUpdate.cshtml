@@ -1,0 +1,43 @@
+﻿@page
+@model OnlineVotingApp.Pages.Admin.AdminGuestUpdateModel
+@{
+	ViewData["Title"] = "Guest Update";
+}
+
+<h2> Guest Details </h2>
+
+<a class="btn btn-dark" href="/Admin/AdminData" >Back to Admin Data</a>
+
+<a class="btn btn-primary" href="/Admin/AdminGuestCreate">Create new Guest</a>
+
+<br/>
+
+<table class="table table-striped">
+	<thead>
+
+		<tr>
+			<th>Guest ID</th>
+			<th>Guest Name</th>
+			<th>Guest Aadhaar</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+
+	<tbody>
+
+		@foreach (var item in Model.guestDetailList)
+		{
+			<tr>
+
+				<td>@item.GuestID</td>
+				<td>@item.GuestName</td>
+				<td>@item.GuestIDProof</td>
+				<td>
+					<a class="btn btn-primary btn-sml" href="/Admin/AdminGuestEdit?id=@item.GuestID"> Edit </a>
+					<a class="btn btn-danger btn-sml" href="/Admin/AdminGuestDelete?id=@item.GuestID"> Delete </a>
+				</td>
+
+			</tr>
+		}
+	</tbody>
+</table>

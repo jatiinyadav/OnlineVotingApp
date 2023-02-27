@@ -1,0 +1,42 @@
+﻿@page
+@model OnlineVotingApp.Pages.Admin.AdminPartyUpdateModel
+@{
+	ViewData["Title"] = "Party Update";
+}
+
+
+<h2>Party Details</h2>
+
+<a class="btn btn-dark" href="/Admin/AdminData">Back to Admin Data</a>
+
+<a class="btn btn-primary" href="/Admin/AdminPartyCreate">Create new Party</a>
+
+<table class="table table-striped">
+	<thead>
+
+		<tr>
+			<th>Party ID</th>
+			<th>Party Name</th>
+			<th>Symbol Name</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		@foreach (var item in Model.guestDetailList)
+		{
+			<tr>
+
+				<td>@item.PartyID</td>
+				<td>@item.PartyName</td>
+				<td>@item.PartySymbol</td>
+				<td>
+					<a class="btn btn-primary btn-sml" href="/Admin/AdminPartyEdit?id=@item.PartyID"> Edit </a>
+					<a class="btn btn-danger btn-sml" href="/Admin/AdminPartyDelete?id=@item.PartyID"> Delete </a>
+				</td>
+
+			</tr>
+		}
+	</tbody>
+</table>
+
